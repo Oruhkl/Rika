@@ -1,0 +1,3 @@
+[submodule "ZerePy"]
+	path = ZerePy
+	url = https://github.com/blorm-network/ZerePy.git
