@@ -15,36 +15,38 @@ A decentralized payroll management system built with Solidity that enables compa
 
 ## Contract Details
 
-### PayrollFactory
-- Creates and manages PayrollManagement contracts for employers
+### RikaFactory
+- Creates and manages RikaManagement contracts for employers
 - Limits employers to maximum 3 payroll contracts
-- Maintains registry of approved employers and deployed contracts
+- Maintains registry of deployed contracts
 - Controls AI agent role assignments
 - Provides administrative functions for pausing/unpausing contracts
 - Includes comprehensive view functions for employer and employee data
 
 Key features:
-- Role-based access control (FACTORY_ADMIN, DEFAULT_ADMIN_ROLE)
-- Employer approval system
+- Role-based access control (DEFAULT_ADMIN_ROLE)
 - Contract deployment limits
 - AI agent integration
 - Contract registry and validation
+- Minimal proxy pattern implementation
+- USDC token integration
 
-### PayrollManagement
+### RikaManagement
 - Handles complete employee lifecycle management
-- Processes payroll through cycles or intervals
+- Processes payroll through schedules and intervals
 - Manages employer funds and salary payments
-- Implements role-based access (ADMIN, EMPLOYER, AI_AGENT roles)
+- Implements role-based access (DEFAULT_ADMIN_ROLE, EMPLOYER_ROLE, AI_AGENT_ROLE)
 
 Key features:
 - Employee management (add, update, deactivate)
-- Payroll cycle creation and processing
-- Automated interval-based payments
+- Schedule creation and processing
+- Weekly, bi-weekly, and monthly payment intervals
 - Fund management (deposits/withdrawals)
 - Withdrawal lock periods (3 days before next payroll)
 - Comprehensive reporting functions
 - Pausable operations
 - AI agent integration for automated processing
+- Safe USDC token handling
 
 ## Technical Features
 
