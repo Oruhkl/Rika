@@ -121,8 +121,24 @@ contract RikaManagement is AccessControl, Pausable {
         uint256 endDate,
         Interval interval
     );
+    event SalariesUpdatedBatch(
+    address indexed employer,
+    address[] employeeAddresses,
+    uint256[] newSalaries
+    );
+
+    event EmployeesAddedBatch(
+        address indexed employer,
+        string[] names,
+        address[] employeeAddresses,
+        uint256[] salaries
+    );
+
     event EmployeeReactivated(address indexed employer, address indexed employeeAddress);
     event ScheduleUpdated(address indexed employer, address indexed employeeAddress, uint256 scheduleId, Interval interval);
+    event ScheduleReactivated(address indexed employer, address indexed employeeAddress, uint256 scheduleId, Interval interval);
+    event ScheduleDeactivated(address indexed employer, address indexed employeeAddress, uint256 scheduleId, Interval interval);
+
     event SalaryPaid(address indexed employer, address indexed employeeAddress, uint256 amount);
     event FundsAdded(address indexed employer, uint256 amount);
     event FundsWithdrawn(address indexed employer, uint256 amount);
@@ -266,8 +282,26 @@ contract RikaManagement is AccessControl, Pausable {
         if (_scheduleId >= schedules.length) revert InvalidSchedule();
 
         schedules[_scheduleId].isActive = false;
-        emit ScheduleUpdated(msg.sender, _employeeAddress, _scheduleId, schedules[_scheduleId].interval);
+        emit ScheduleDeactivated(msg.sender, _employeeAddress, _scheduleId, schedules[_scheduleId].interval);
     }
+
+    /**
+    * @notice Reactivates a deactivated schedule for an employee.
+    * @param _employeeAddress The employee's address.
+    * @param _scheduleId The schedule ID to reactivate.
+    */
+    function reactivateSchedule(address _employeeAddress, uint256 _scheduleId)
+        external
+        onlyRole(EMPLOYER_ROLE)
+        onlyEmployerOf(_employeeAddress)
+    {
+        Schedule[] storage schedules = employeeSchedules[msg.sender][_employeeAddress];
+        if (_scheduleId >= schedules.length) revert InvalidSchedule();
+
+        schedules[_scheduleId].isActive = true;
+        emit ScheduleReactivated(msg.sender, _employeeAddress, _scheduleId, schedules[_scheduleId].interval);
+    }
+
 
     /**
      * @notice Updates the interval for an existing schedule.
@@ -351,6 +385,7 @@ contract RikaManagement is AccessControl, Pausable {
         for (uint256 i = 0; i < _employeeAddresses.length; i++) {
             updateEmployeeSalary(_employeeAddresses[i], _newSalaries[i]);
         }
+        emit SalariesUpdatedBatch(msg.sender, _employeeAddresses, _newSalaries);
     }
 
     /**
@@ -371,6 +406,7 @@ contract RikaManagement is AccessControl, Pausable {
         for (uint256 i = 0; i < _employeeAddresses.length; i++) {
             addEmployee(_names[i], _employeeAddresses[i], _salaries[i]);
         }
+        emit EmployeesAddedBatch(msg.sender, _names, _employeeAddresses, _salaries);
     }
 
 

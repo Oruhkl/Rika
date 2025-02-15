@@ -4,14 +4,13 @@ A decentralized payroll management system built with Solidity that enables compa
 
 ## Contracts Deployed
 
-- **RUSDC**: [0x824B9F845F7F4CAFD1A4F01493e245023ea9E88c](https://testnet.sonicscan.org/address/0x824B9F845F7F4CAFD1A4F01493e245023ea9E88c#code)
+- **RUSDC**: [0xdB58fAF32AD9A22c8705F789b7b36B6fBfb5f5Ad](https://testnet.sonicscan.org/address/0xdB58fAF32AD9A22c8705F789b7b36B6fBfb5f5Ad#code)
 
-- **RUSDCFaucet**: [0xe740f701bdF22C006934A68D2e019B5bab792EE3](https://testnet.sonicscan.org/address/0xe740f701bdF22C006934A68D2e019B5bab792EE3#code)
+- **RUSDCFaucet**: [0x33fcd38fD7339414D46AC2bd9f16620d836005A6](https://testnet.sonicscan.org/address/0x33fcd38fD7339414D46AC2bd9f16620d836005A6#code)
 
-- **RikaManagement Implementation**: [0xf5914fE7A0326F34EE7D700B4f14f2843b1C47D1](https://testnet.sonicscan.org/address/0xf5914fE7A0326F34EE7D700B4f14f2843b1C47D1#code)
+- **RikaManagement Implementation**: [0xC1F72FFCF59E0DeFD645DDAe8762318486a0c2d1](https://testnet.sonicscan.org/address/0xC1F72FFCF59E0DeFD645DDAe8762318486a0c2d1#code)
 
-- **RikaFactory**: [0xA75bB5c16e78f7b9752002A7595607EBE42547db](https://testnet.sonicscan.org/address/0xA75bB5c16e78f7b9752002A7595607EBE42547db#code)
-
+- **RikaFactory**: [0x11adB1411296FBC480Cd17E86e76EC00Ac006B7A](https://testnet.sonicscan.org/address/0x11adB1411296FBC480Cd17E86e76EC00Ac006B7A#code)
 
 ## Contract Details
 
