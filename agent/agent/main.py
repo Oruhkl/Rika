@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.routes.web3 import client
 from app.routes.agent import agent
+from app.routes.celery import celery
 
 
 import os
@@ -20,6 +21,7 @@ app.add_middleware(
 
 app.include_router(client.router, prefix="/api/v1/payroll", tags=["payroll"])
 app.include_router(agent.router, prefix="/api/v1/agent", tags=["agent"])
+app.include_router(celery.router, prefix="/api/v1/celery", tags=["celery"])
 
 if __name__ == "__main__":
     import uvicorn

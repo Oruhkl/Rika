@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException, APIRouter
 from typing import List, Optional, Dict, Any
 from app.routes.web3.model import  (BaseResponse, CreatePayrollContractRequest, AddEmployeeRequest, AddEmployeesBatchRequest, AddFundsRequest, CreateScheduleRequest, EmployeeStatusRequest, UpdateSalaryRequest, PayrollProcessRequest, GetDetailsRequest)
-from app.contract.client import (create_payroll_contract, add_employee, add_employees_batch, add_funds, create_schedule, deactivate_employee, reactivate_employee, update_employee_salary, process_all_payrolls, get_employee_details, get_all_employees_with_details, get_employer_balance, get_total_payroll_liability, get_next_payroll_date)
+from app.contract.client import (create_payroll_contract, add_employee, add_employees_batch, add_funds, create_schedule, deactivate_employee, reactivate_employee, update_employee_salary, process_all_payrolls, get_employee_details, get_all_employees_with_details, get_employer_balance, get_total_payroll_liability, get_next_payroll_date, get_employer_payroll_contract)
 
 
 router = APIRouter()
@@ -25,6 +25,7 @@ async def create_payroll_contract_endpoint(request: CreatePayrollContractRequest
             data=None,
             error=str(e)
         )
+
 
 
 @router.post("/employees", response_model=BaseResponse)
@@ -52,16 +53,26 @@ async def add_employee_endpoint(request: AddEmployeeRequest):
         )
 
 @router.post("/funds", response_model=BaseResponse)
-async def add_funds(request: AddFundsRequest):
+async def add_funds_endpoint(request: AddFundsRequest):
     try:
-        result = await add_funds(
+        result = add_funds(
             request.amount,
             request.employer_address,
             request.contract_index
         )
-        return handle_response(result)
+        return BaseResponse(
+            success=True,
+            message="Operation successful",
+            data=result,
+            error=None
+        )
     except Exception as e:
-        return handle_response({"error": str(e)})
+        return BaseResponse(
+            success=False,
+            message="Operation failed",
+            data=None,
+            error=str(e)
+        )
 
 @router.post("/schedules", response_model=BaseResponse)
 async def create_schedule(request: CreateScheduleRequest):
@@ -193,28 +204,6 @@ async def health_check():
     return {"status": "healthy", "version": "1.0.0"}
 
 
-# --- Helper Function ---
-def handle_response(result: Dict) -> BaseResponse:
-    if isinstance(result, dict):
-        if "error" in result:
-            return BaseResponse(
-                success=False,
-                message="Operation failed",
-                data={"error": result["error"]},
-                error=result["error"]
-            )
-        return BaseResponse(
-            success=True,
-            message=result.get("message", "Operation successful"),
-            data=result,
-            error=None
-        )
-    return BaseResponse(
-        success=True,
-        message="Operation successful",
-        data={"result": result},
-        error=None
-    )
 
 
 def get_router():

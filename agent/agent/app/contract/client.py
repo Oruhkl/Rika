@@ -64,6 +64,21 @@ def create_payroll_contract(employer_address: str) -> Dict[str, Any]:
         return {"error": str(e)}
     except Exception as e:
         return {"error": str(e)}
+
+def get_all_payroll_contracts_with_employers() -> Dict[str, Any]:
+    """Gets all payroll contracts with their respective employers."""
+    try:
+        employers, contracts = rika_factory.functions.getAllPayrollContractsWithEmployers().call()
+        return {
+            "employers": employers,
+            "contracts": contracts,
+            "message": f"Successfully retrieved {len(employers)} employer-contract pairs"
+        }
+    except ContractLogicError as e:
+        return {"error": str(e)}
+    except Exception as e:
+        return {"error": str(e)}
+
 def get_employer_payroll_contract(employer_address: str, contract_index: int = 0) -> Dict[str, Any]:
     """Gets specific payroll contract instance based on index."""
     try:
@@ -91,6 +106,8 @@ def get_employer_payroll_contract(employer_address: str, contract_index: int = 0
         return {"error": str(e)}
     except Exception as e:
         return {"error": str(e)}
+
+
 
 # Rika Management Functions
 def get_contract_instance(employer_address: str, contract_index: int = 0) -> Dict[str, Any]:
