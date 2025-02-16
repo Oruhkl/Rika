@@ -150,13 +150,13 @@ class RikaAgent:
         param_examples = {
             "name": "e.g., 'John Doe'",
             "employee_address": "e.g., '0x456...' (a valid Ethereum address)",
-            "salary": "e.g., 5000 (in USD)",
+            "salary": "e.g., 5000 (in USDC)",
             "contract_index": "e.g., 0 (the index of the payroll contract)",
-            "amount": "e.g., 1000 (in USD)",
+            "amount": "e.g., 1000 (in USDC)",
             "start_date": "e.g., 1672531200 (a Unix timestamp)",
             "end_date": "e.g., 1675123200 (a Unix timestamp)",
             "interval": "e.g., 0 (daily) or 1 (weekly)",
-            "new_salary": "e.g., 6000 (in USD)"
+            "new_salary": "e.g., 6000 (in USDC)"
         }
 
         friendly_message = "To proceed, I'll need a bit more information. Could you please provide the following details?\n"
